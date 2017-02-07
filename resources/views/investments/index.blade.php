@@ -1,5 +1,6 @@
 @extends('app')
 @section('content')
+@if(Auth::check())
     <h1>Investment</h1>
     <a href="{{url('/investments/create')}}" class="btn btn-success">Create Investment</a>
     <hr>
@@ -41,5 +42,9 @@
         </tbody>
 
     </table>
+@endif
+@if(Auth::guest())
+    <a class="btn btn-info" href="{{ url('/login') }} ">You need to LOGIN.</a>
+@endif
 @endsection
 

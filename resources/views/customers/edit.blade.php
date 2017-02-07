@@ -1,5 +1,6 @@
 @extends('app')
 @section('content')
+@if(Auth::check())
     <h1>Update Customer</h1>
     {!! Form::model($customer,['method' => 'PATCH','route'=>['customers.update',$customer->id]]) !!}
     <div class="form-group">
@@ -43,4 +44,8 @@
         {!! Form::submit('Update', ['class' => 'btn btn-primary']) !!}
     </div>
     {!! Form::close() !!}
+@endif
+@if(Auth::guest())
+    <a class="btn btn-info" href="{{ url('/login') }} ">You need to LOGIN.</a>
+@endif
 @stop

@@ -1,5 +1,6 @@
 @extends('app')
 @section('content')
+@if(Auth::check())
     <h1>Create New Stock</h1>
     {!! Form::open(['url' => 'stocks']) !!}
 
@@ -32,4 +33,8 @@
         {!! Form::submit('Save', ['class' => 'btn btn-primary form-control']) !!}
     </div>
     {!! Form::close() !!}
+@endif
+@if(Auth::guest())
+    <a class="btn btn-info" href="{{ url('/login') }} ">You need to LOGIN.</a>
+@endif
 @stop

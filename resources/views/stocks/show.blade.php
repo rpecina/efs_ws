@@ -1,5 +1,6 @@
 @extends('app')
 @section('content')
+@if(Auth::check())
     <h1>Stock </h1>
     <div class="container">
         <table class="table table-striped table-bordered table-hover">
@@ -28,5 +29,9 @@
             </tbody>
         </table>
     </div>
+@endif
+@if(Auth::guest())
+    <a class="btn btn-info" href="{{ url('/login') }} ">You need to LOGIN.</a>
+@endif
 @stop
 
