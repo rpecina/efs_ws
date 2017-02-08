@@ -221,15 +221,184 @@
 
 
 
+
+
+
+
+
+
+    <?php
+    $stockprice=null;
+    $stotal = 0;
+    $svalue=0;
+    $itotal = 0;
+    $ivalue=0;
+    $iportfolio = 0;
+    $cportfolio = 0;
+
+    $tot_fund_old=0;
+    $tot_fund_cur=0;
+
+    ?>
+    <br>
+    <h2>Funds </h2>
+    <div class="container">
+        <table class="table table-striped table-bordered table-hover">
+            <thead>
+            <tr class="bg-info">
+                <th>Category</th>
+                <th>Description</th>
+                <th>Pooled With</th>
+                <th>Acquired NAV</th>
+                <th>Purchase Date</th>
+                <th>Growth Rate per Year</th>
+                <th>Current NAV</th>
+            </tr>
+            </thead>
+
+            <tbody>
+
+
+
+
+            @foreach($customer->funds as $fund)
+                <tr>
+                    <td>{{ $fund->category }}</td>
+                    <td>{{ $fund->description }}</td>
+                    <td>{{ $fund->pooled_with }}</td>
+                    <td>{{ $fund->acquired_net_asset_value }}</td>
+                    <td>{{ $fund->acquired_date }}</td>
+                    <td>{{ $fund->estimated_yield_over_two_yrs }}</td>
+                    <td>
+                        <?php
+                            $now=date("Y");
+                            $acq_date_unform=$fund->acquired_date;
+                            $acq_val=$fund->acquired_net_asset_value;
+                            $growth=$fund->estimated_yield_over_two_yrs;
+                            $acquisition=date('Y', strtotime($acq_date_unform));
+                            $diff=$now-$acquisition;
+                            $val_cur_est=$acq_val*(pow($growth,$diff));
+                        ?>
+                            {{ "$" . $val_cur_est }}
+                    </td>
+
+                    <!--insert original value-->
+                </tr>
+                <?php
+                $org_val = $fund->acquired_net_asset_value;
+                $tot_fund_old=$tot_fund_old+$org_val;
+
+                $tot_fund_cur=$tot_fund_cur+$val_cur_est;
+                ?>
+            @endforeach
+
+            </tbody>
+        </table>
+        Total of Initial Funds Portfolio {{ "$" . $tot_fund_old }} </br>
+        Total of Current Funds Portfolio {{ "$" . $tot_fund_cur }} </br>
+        </br><br>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <?php
+    $stockprice=null;
+    $stotal = 0;
+    $svalue=0;
+    $itotal = 0;
+    $ivalue=0;
+    $iportfolio = 0;
+    $cportfolio = 0;
+
+    $tot_immo_old=0;
+    $tot_immo_cur=0;
+
+    ?>
+    <br>
+    <h2>Immobilia </h2>
+    <div class="container">
+        <table class="table table-striped table-bordered table-hover">
+            <thead>
+            <tr class="bg-info">
+                <th>Category</th>
+                <th>Description</th>
+                <th>Address</th>
+                <th>Acquired Value</th>
+                <th>Acquired Date</th>
+                <th>Recent Value</th>
+                <th>Recent Date</th>
+            </tr>
+            </thead>
+
+            <tbody>
+
+
+
+
+            @foreach($customer->immobilias as $immobilia)
+                <tr>
+                    <td>{{ $immobilia->category }}</td>
+                    <td>{{ $immobilia->description }}</td>
+                    <td>{{ $immobilia->address }}</td>
+                    <td>{{ $immobilia->acquired_value }}</td>
+                    <td>{{ $immobilia->acquired_date }}</td>
+                    <td>{{ $immobilia->recent_value }}</td>
+                    <td>{{ $immobilia->recent_date }}</td>
+                </tr>
+                <?php
+                $org_val = $immobilia->acquired_value;
+                $tot_immo_old=$tot_immo_old+$org_val;
+                $cur_val = $immobilia->recent_value;
+                $tot_immo_cur=$tot_immo_cur+$cur_val;
+                ?>
+            @endforeach
+
+            </tbody>
+        </table>
+        Total of Initial Immobilia Portfolio {{ "$" . $tot_immo_old }} </br>
+        Total of Current Immobilia Portfolio {{ "$" . $tot_immo_cur }} </br>
+        </br><br>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     <h2>Summary of Portfolio </h2>
     <?php
-        $tot_port_old=$tot_stock_old+$tot_investment_old;
-        $tot_port_cur=$tot_stock_cur+$tot_investment_cur;
+        $tot_port_old=$tot_stock_old+$tot_investment_old+$tot_fund_old+$tot_immo_old;
+        $tot_port_cur=$tot_stock_cur+$tot_investment_cur+$tot_fund_cur+$tot_immo_cur;
     ?>
     <div class="container">
         Total of Initial Portfolio Value {{ "$" . $tot_port_old }} </br>
         Total of Current Portfolio Value {{ "$" . $tot_port_cur }} </br>
     </div>
+    </br>
+    </br>
+    </br>
+    </br>
+    </br>
 
 
 

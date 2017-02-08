@@ -7,6 +7,8 @@ Route::get('/', function () {
 Route::resource('customers','CustomerController');
 Route::resource('stocks','StockController');
 Route::resource('investments','InvestmentController');
+Route::resource('immobilias','ImmoController');
+Route::resource('funds','FundController');
 Route::get('customers/{id}/stringify', 'CustomerController@stringify');
 
 

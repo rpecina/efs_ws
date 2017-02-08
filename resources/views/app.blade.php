@@ -10,7 +10,9 @@
 <div class="container">
     <a href="{{ action('CustomerController@index') }}">Customers</a> |
     <a href="{{ action('StockController@index') }}">Stocks</a> |
-    <a href="{{ action('InvestmentController@index') }}">Investments</a>
+    <a href="{{ action('InvestmentController@index') }}">Investments</a> |
+    <a href="{{ action('FundController@index') }}">Funds</a> |
+    <a href="{{ action('ImmoController@index') }}">Immobilias</a>
 </div>
 <hr>
 <div class="container">
